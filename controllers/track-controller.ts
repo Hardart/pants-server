@@ -9,8 +9,11 @@ class TrackController {
 
   async archive(req: Request, res: Response) {
     const date = req.query.dateFilter
-    const archive = await trackService.archive(`${date}`)
-    res.status(200).json({ archive })
+    if (typeof date !== 'string') res.status(200).json(false)
+    else {
+      const archive = await trackService.archive(date)
+      res.status(200).json({ archive })
+    }
   }
 }
 

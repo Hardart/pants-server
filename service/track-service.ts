@@ -11,15 +11,16 @@ export class TrackService {
   }
 
   async archive(date: string) {
-    // const limitDate = Date.parse(date)
-    console.log(date)
+    const from = new Date(date)
+    const to = new Date(Date.parse(date) + 3 * 3600 * 1000)
+
     return await ArchiveTrack.aggregate([
       {
-        $match: { createdAt: { $gt: date } }
+        $match: { createdAt: { $gte: from, $lt: to } }
       },
       {
         $lookup: {
-          from:'tracks',
+          from: 'tracks',
           localField: 'trackId',
           foreignField: '_id',
           as: 'track'
@@ -42,9 +43,6 @@ export class TrackService {
       },
       {
         $sort: { createdAt: -1 }
-      },
-      {
-        $limit: 30
       }
     ])
   }
