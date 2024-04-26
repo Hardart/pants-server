@@ -24,19 +24,11 @@ UserSchema.post('save', function (error: Error, _: any, next: mongoose.CallbackW
   }
 })
 
-UserSchema.set('toObject', {
-  virtuals: true,
-  transform: function (_, ret) {
-    ret.fullName = ret.lastName + ' ' + ret.firstName
-  },
-})
+
+
 UserSchema.set('toJSON', {
   versionKey: false,
-  virtuals: true,
-  transform: function (_, ret) {
-    delete ret._id
-    ret.fullName = ret.lastName + ' ' + ret.firstName
-  },
+  virtuals: true
 })
 
 UserSchema.virtual('fullName').get(function () {

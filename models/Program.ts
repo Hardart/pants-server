@@ -1,4 +1,5 @@
 import { Schema, model, InferSchemaType } from 'mongoose'
+import { User } from './UserModel'
 
 const ProgramSchema = new Schema(
   {
@@ -6,7 +7,7 @@ const ProgramSchema = new Schema(
     slug: { type: String, required: true },
     description: String,
     image: String,
-    hosts: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    hosts: [{ type: Schema.Types.ObjectId, ref: User }],
     schedule: [{
       weekdayIds: [Number],
       properties: [

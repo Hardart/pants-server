@@ -1,5 +1,6 @@
 import { Program } from '../models/Program'
 import type { PipelineStage } from 'mongoose'
+
 class ProgramService {
   async schedule() {
     const programs = {
@@ -34,7 +35,7 @@ class ProgramService {
   }
 
   async oneBySlug(slug: string) {
-    const program = await Program.findOne({slug}).select('-color')
+    const program = await Program.findOne({ slug }).select('-color').populate({ path: 'hosts', select: '-password -_id'})
     const schedule = program?.schedule.map(sch => ({
       properties: sch.properties.map(p => ({start: `${p.start?.hh}:${p.start?.mm}`, end: `${p.end?.hh}:${p.end?.mm}`, isReplay: p.isReplay})),
       weekdayIds: sch.weekdayIds

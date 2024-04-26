@@ -12,6 +12,7 @@ interface IMenuItem {
   label: string
   childrens?: IMenuItem[]
 }
+
 let menu:MenuItem[] = []
 let footerCache:FooterMeta
 export default class PageController {
