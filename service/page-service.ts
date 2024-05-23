@@ -1,3 +1,4 @@
+import { Contact } from '../models/Contact'
 import { QueryParams } from '../types/custom-request'
 import { FooterMeta } from '../types/footer'
 import { MenuItem } from '../types/menu'
@@ -7,7 +8,7 @@ const AGE_RATE = 12
 const CONTACTS = {
   address: 'Пензенская обл., Бессоновский район, село Чемодановка',
   index: 442761,
-  street: 'Средняя',
+  street: 'ул. Средняя',
   houseNumber: 12
 }
 
@@ -179,30 +180,6 @@ const schedule = [
   }
 ]
 
-const footer: FooterMeta = {
-  smsInfo: {
-    iconValue: 'i',
-    text: '<p>*Стоимость SMS-сообщения согласно тарифу Вашего сотового оператора. Сервис предоставлен ПАО «МЕГАФОН».</p>'
-  },
-  licenseInfo: {
-    iconValue: AGE_RATE,
-    text: '<p>Средство массовой информации «RADIOSHTANI.RU» зарегистрировано 29 марта 2021 г. в форме распространения «Сетевое издание». Свидетельство Эл № ФС77-80691 от 29.03.2021 выдано Федеральной службой по надзору в сфере связи, информационных технологий имассовых коммуникаций (Роскомнадзор). Для детей старше 12 лет.</p><p>Средство массовой информации «Радио ШТАНЫ» зарегистрировано 12 октября 2021 г. в форме распространения «Радиоканал». Свидетельство Эл № ФС77-82055 от 12.10.2021 выдано Федеральной службой по надзору в сфере связи, информационных технологий и массовых коммуникаций (Роскомнадзор). Для детей старше 12 лет.</p>'
-  },
-  contacts: [
-    { label: 'Телефон прямого эфира', phone: '+7 (495) 128 43 25', type: 'phone' },
-    { label: 'Единый номер WhatsApp и SMS (услуга платная*)', phone: '+7 (937) 434 3373', type: 'phone' },
-    { label: 'E-mail прямого эфира', mail: 'onair@radioshtani.ru', type: 'mail' },
-    { label: 'Телефон редакции', phone: '+7 (495) 128 43 94', type: 'phone' },
-    {
-      label: 'Адрес редакции',
-      text: 'Пензенская область, Бессоновский район, село Чемодановка, ул. Средняя, д. 12',
-      href: 'https://yandex.ru/maps/-/CCUV4-V91C',
-      type: 'link'
-    },
-    { label: 'Техническая поддержка сайта', mail: 'help@elarin.ru', type: 'mail' }
-  ]
-}
-
 const contacts = {
   title: 'Федеральная редакция',
   phones: [
@@ -210,7 +187,7 @@ const contacts = {
     { label: 'Эфир', phone: '+7 (495) 128-43-25', type: 'phone' },
     { label: 'WhatsApp и SMS', phone: '+7 (937) 434-33-73', type: 'phone' }
   ],
-  address: `${CONTACTS.index}, ${CONTACTS.address}, ул. ${CONTACTS.street}, д. ${CONTACTS.houseNumber}`,
+  address: `${CONTACTS.index}, ${CONTACTS.address}, ${CONTACTS.street}, д. ${CONTACTS.houseNumber}`,
   emails: [
     { label: 'Служба информации', mail: 'info@radioshtani.ru', type: 'mail' },
     { label: 'Пресс-релизы', mail: 'press-rel@radioshtani.ru', type: 'mail' },
@@ -240,15 +217,33 @@ class PageService {
     return schedule
   }
 
-  async footer() {
-    return footer
+  async footerData(): Promise<FooterMeta> {
+    const { licenseInfo, smsInfo } = this.footerInfo()
+    return { contacts: await this.footerContacts(), licenseInfo, smsInfo }
+  }
+
+  footerInfo() {
+    return {
+      smsInfo: {
+        iconValue: 'i',
+        text: '<p>*Стоимость SMS-сообщения согласно тарифу Вашего сотового оператора. Сервис предоставлен ПАО «МЕГАФОН».</p>'
+      },
+      licenseInfo: {
+        iconValue: AGE_RATE,
+        text: '<p>Средство массовой информации «RADIOSHTANI.RU» зарегистрировано 29 марта 2021 г. в форме распространения «Сетевое издание». Свидетельство Эл № ФС77-80691 от 29.03.2021 выдано Федеральной службой по надзору в сфере связи, информационных технологий имассовых коммуникаций (Роскомнадзор). Для детей старше 12 лет.</p><p>Средство массовой информации «Радио ШТАНЫ» зарегистрировано 12 октября 2021 г. в форме распространения «Радиоканал». Свидетельство Эл № ФС77-82055 от 12.10.2021 выдано Федеральной службой по надзору в сфере связи, информационных технологий и массовых коммуникаций (Роскомнадзор). Для детей старше 12 лет.</p>'
+      }
+    }
+  }
+
+  async footerContacts() {
+    return await Contact.find()
   }
 
   async index(query: QueryParams) {
     const pageData = {
       news: await articleService.list(query),
       hosts: await this.hosts(),
-      footer
+      footer: await this.footerData()
     }
     return pageData
   }

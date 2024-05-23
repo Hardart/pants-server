@@ -33,7 +33,7 @@ export default class PageController {
       mainMenu.forEach((item) => {
         if (item.slug === 'programs') item.childrens = programs.map((p) => ({ label: p.title, slug: p.slug }))
       })
-      footerCache = await pageService.footer()
+      footerCache = await pageService.footerData()
       menu = addLinkToMenuItem(mainMenu)
       console.log('build')
     }
