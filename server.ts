@@ -1,9 +1,10 @@
 import * as dotenv from 'dotenv'
 import app from './app'
+import path from 'path'
 import mongoose from 'mongoose'
 import ErrorService from './service/error-service'
-
-dotenv.config({ path: __dirname + '/.env' })
+const envPath = process.env.NODE_ENV === 'production' ? path.join(__dirname, '..', '/.env') : __dirname + '/.env'
+dotenv.config({ path: envPath })
 
 const PORT = process.env.PORT || 3070
 

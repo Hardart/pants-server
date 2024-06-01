@@ -36,8 +36,10 @@ export default class PageController {
       footerCache = await pageService.footerData()
       menu = addLinkToMenuItem(mainMenu)
       console.log('build')
+    } else {
+      console.log('cache')
     }
-    console.log('cache')
+
     const tagList = await tagService.list()
     res.json({ mainMenu: menu, tagList, footer: footerCache })
   }
