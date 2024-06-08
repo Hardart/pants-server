@@ -22,11 +22,9 @@ const ContactSchema = new Schema(
 
 ContactSchema.set('toJSON', {
   versionKey: false,
-  virtuals: true,
   transform: function (_, ret) {
     ret.phone = ret.phoneId
     ret.mail = ret.mailId
-    delete ret._id
     delete ret.phoneId
     delete ret.mailId
   }

@@ -15,49 +15,49 @@ const CONTACTS = {
 const team = [
   {
     fullName: 'Ella Ward',
-    position: 'Dental Assistant',
+    position: 'DJ',
     avatar: '/images/team/01.webp'
   },
 
   {
     fullName: 'Cedric Wilson',
-    position: 'Dental Assistant',
+    position: 'DJ',
     avatar: '/images/team/02.webp'
   },
 
   {
     fullName: 'Sandra Kim',
-    position: 'Dental Assistant',
+    position: 'DJ',
     avatar: '/images/team/03.webp'
   },
 
   {
     fullName: 'Edie Sheffield',
-    position: 'Dental Assistant',
+    position: 'DJ',
     avatar: '/images/team/04.webp'
   },
 
   {
     fullName: 'Miriam Weber',
-    position: 'Office Management',
+    position: 'Host',
     avatar: '/images/team/05.webp'
   },
 
   {
     fullName: 'Amber Rosso',
-    position: 'Office Management',
+    position: 'Host',
     avatar: '/images/team/06.webp'
   },
 
   {
     fullName: 'Alison Hart',
-    position: 'Front Desk',
+    position: 'Press',
     avatar: '/images/team/07.webp'
   },
 
   {
     fullName: 'Shelley Wyatt',
-    position: 'Front Desk',
+    position: 'Press',
     avatar: '/images/team/08.webp'
   }
 ]
@@ -97,111 +97,28 @@ const mainMenu: MenuItem[] = [
   }
 ]
 
-// const schedule = [
-//   {
-//     weekdayTitle: 'Понедельник',
-//     weekdayId: 1,
-//     programs: [
-//       { start: '07:00', end: '10:00', title: 'Тапки ШОУ', replay: false, avatar: '/logo.svg' },
-//       { start: '14:00', end: '15:00', title: 'Программа «ЛИЧКА»', replay: false, avatar: '/logo.svg' },
-//       {
-//         start: '16:00',
-//         end: '18:00',
-//         title: 'TOP Chart 20 – Лучшие треки недели',
-//         replay: true,
-//         avatar: '/images/programs/top-chart.webp'
-//       },
-//       { start: '18:00', end: '21:00', title: 'Вечерний отрыв', replay: false, avatar: '/logo.svg' }
-//     ]
-//   },
-//   {
-//     weekdayTitle: 'Вторник',
-//     weekdayId: 2,
-//     programs: [
-//       { start: '07:00', end: '10:00', title: 'Тапки ШОУ', replay: false, avatar: '/logo.svg' },
-//       { start: '14:00', end: '15:00', title: 'Программа «ЛИЧКА»', replay: false, avatar: '/logo.svg' },
-//       { start: '18:00', end: '21:00', title: 'Вечерний отрыв', replay: false, avatar: '/logo.svg' }
-//     ]
-//   },
-//   {
-//     weekdayTitle: 'Среда',
-//     weekdayId: 3,
-//     programs: [
-//       { start: '07:00', end: '10:00', title: 'Тапки ШОУ', replay: false, avatar: '/logo.svg' },
-//       { start: '14:00', end: '15:00', title: 'Программа «ЛИЧКА»', replay: false, avatar: '/logo.svg' },
-//       { start: '16:00', end: '18:00', title: 'TOP Chart 20 – Итоги недели', replay: true, avatar: '/logo.svg' },
-//       { start: '18:00', end: '21:00', title: 'Вечерний отрыв', replay: false, avatar: '/logo.svg' }
-//     ]
-//   },
-//   {
-//     weekdayTitle: 'Четверг',
-//     weekdayId: 4,
-//     programs: [
-//       { start: '07:00', end: '10:00', title: 'Тапки ШОУ', replay: false, avatar: '/logo.svg' },
-//       { start: '14:00', end: '15:00', title: 'Программа «ЛИЧКА»', replay: false, avatar: '/logo.svg' },
-//       { start: '18:00', end: '21:00', title: 'Вечерний отрыв', replay: false, avatar: '/logo.svg' }
-//     ]
-//   },
-//   {
-//     weekdayTitle: 'Пятница',
-//     weekdayId: 5,
-//     programs: [
-//       { start: '07:00', end: '10:00', title: 'Тапки ШОУ', replay: false, avatar: '/logo.svg' },
-//       { start: '14:00', end: '15:00', title: 'Программа «ЛИЧКА»', replay: false, avatar: '/logo.svg' },
-//       { start: '18:00', end: '21:00', title: 'Вечерний отрыв', replay: false, avatar: '/logo.svg' },
-//       { start: '21:00', end: '00:00', title: 'Атмосферные выходные', replay: false, avatar: '/logo.svg' }
-//     ]
-//   },
-//   {
-//     weekdayTitle: 'Суббота',
-//     weekdayId: 6,
-//     programs: [
-//       { start: '10:00', end: '14:00', title: 'Атмосферные выходные', replay: false, avatar: '/logo.svg' },
-//       { start: '14:00', end: '15:00', title: 'Программа «ЛИЧКА»', replay: false, avatar: '/logo.svg' },
-//       { start: '15:00', end: '18:00', title: 'Атмосферные выходные', replay: false, avatar: '/logo.svg' },
-//       {
-//         start: '18:00',
-//         end: '19:00',
-//         title: 'TOP Chart 20 – Лучшие треки недели',
-//         replay: false,
-//         avatar: '/images/programs/top-chart.webp'
-//       }
-//     ]
-//   },
-//   {
-//     weekdayTitle: 'Воскресенье',
-//     weekdayId: 0,
-//     programs: [
-//       { start: '10:00', end: '14:00', title: 'Атмосферные выходные', replay: false, avatar: '/logo.svg' },
-//       { start: '14:00', end: '15:00', title: 'Программа «ЛИЧКА»', replay: false, avatar: '/logo.svg' },
-//       { start: '15:00', end: '18:00', title: 'Атмосферные выходные', replay: false, avatar: '/logo.svg' },
-//       { start: '18:00', end: '19:00', title: 'TOP Chart 20 – Итоги недели', replay: false, avatar: '/logo.svg' }
-//     ]
-//   }
-// ]
-
 const contacts = {
   title: 'Федеральная редакция',
   phones: [
-    { label: 'Офис/Реклама', phone: '+7 (495) 128-43-94', type: 'phone' },
-    { label: 'Эфир', phone: '+7 (495) 128-43-25', type: 'phone' },
-    { label: 'WhatsApp и SMS', phone: '+7 (937) 434-33-73', type: 'phone' }
+    { label: 'Офис/Реклама', phone: { number: '+7 (495) 128-43-94' }, type: 'phone' },
+    { label: 'Эфир', phone: { number: '+7 (495) 128-43-25' }, type: 'phone' },
+    { label: 'WhatsApp и SMS', phone: { number: '+7 (937) 434-33-73' }, type: 'phone' }
   ],
   address: `${CONTACTS.index}, ${CONTACTS.address}, ${CONTACTS.street}, д. ${CONTACTS.houseNumber}`,
   emails: [
-    { label: 'Служба информации', mail: 'info@radioshtani.ru', type: 'mail' },
-    { label: 'Пресс-релизы', mail: 'press-rel@radioshtani.ru', type: 'mail' },
-    { label: 'Редакция радиоканала', mail: 'edition@radioshtani.ru', type: 'mail' },
-    { label: 'Музыкальная редакция', mail: 'songs@radioshtani.ru', type: 'mail' },
-    { label: 'Прямой эфир', mail: 'onair@radioshtani.ru', type: 'mail' }
+    { label: 'Служба информации', mail: { title: 'info@radioshtani.ru' }, type: 'mail' },
+    { label: 'Пресс-релизы', mail: { title: 'press-rel@radioshtani.ru' }, type: 'mail' },
+    { label: 'Редакция радиоканала', mail: { title: 'edition@radioshtani.ru' }, type: 'mail' },
+    { label: 'Музыкальная редакция', mail: { title: 'songs@radioshtani.ru' }, type: 'mail' },
+    { label: 'Прямой эфир', mail: { title: 'onair@radioshtani.ru' }, type: 'mail' }
   ]
 }
 
 const commercial = {
   title: 'Рекламная служба «Радио ШТАНЫ»',
   description: 'По всем вопросам размещения рекламы на «Радио ШТАНЫ» в регионах сейлз-хаус медиахолдинга «LOLAMEDIA»',
-  phones: [{ label: 'Офис/Реклама', phone: '+7 (495) 128-43-94', type: 'phone' }],
-  emails: [{ label: '', mail: 'adv@elarin.ru', type: 'mail' }]
+  phones: [{ label: 'Офис/Реклама', phone: { number: '+7 (495) 128-43-94' }, type: 'phone' }],
+  emails: [{ label: '', mail: { title: 'adv@elarin.ru' }, type: 'mail' }]
 }
 
 class PageService {
@@ -212,10 +129,6 @@ class PageService {
   async mainMenu() {
     return mainMenu
   }
-
-  // async programs() {
-  //   return schedule
-  // }
 
   async footerData(): Promise<FooterMeta> {
     const { licenseInfo, smsInfo } = this.footerInfo()
@@ -237,8 +150,9 @@ class PageService {
 
   async footerContacts() {
     return await Contact.find()
-      .populate({ path: 'phoneId', select: 'number' })
-      .populate({ path: 'mailId', select: 'title' })
+      .populate({ path: 'phoneId', select: 'number -_id' })
+      .populate({ path: 'mailId', select: 'title -_id' })
+      .select('-updatedAt -createdAt -_id')
   }
 
   async index(query: QueryParams) {

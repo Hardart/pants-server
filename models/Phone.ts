@@ -7,13 +7,5 @@ const PhoneSchema = new Schema(
   { timestamps: false, versionKey: false, toObject: { virtuals: true } }
 )
 
-PhoneSchema.set('toJSON', {
-  versionKey: false,
-  virtuals: true,
-  transform: function (_, ret) {
-    delete ret._id
-  }
-})
-
 export type Phone = InferSchemaType<typeof PhoneSchema>
 export const Phone = model('Phone', PhoneSchema)

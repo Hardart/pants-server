@@ -8,11 +8,7 @@ const MailSchema = new Schema(
 )
 
 MailSchema.set('toJSON', {
-  versionKey: false,
-  virtuals: true,
-  transform: function (_, ret) {
-    delete ret._id
-  }
+  versionKey: false
 })
 
 export type Mail = InferSchemaType<typeof MailSchema>
