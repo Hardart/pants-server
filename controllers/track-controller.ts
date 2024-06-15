@@ -1,5 +1,6 @@
 import type { Response, Request } from 'express'
 import trackService from '../service/track-service'
+import trackArchiveService from '../service/track-archive-service'
 
 class TrackController {
   async list(req: Request, res: Response) {
@@ -9,10 +10,12 @@ class TrackController {
 
   async archive(req: Request, res: Response) {
     const date = req.query.dateFilter
-    if (typeof date !== 'string') res.status(200).json(false)
-    else {
+    if (typeof date !== 'string') {
+      res.status(200).json(false)
+    } else {
       const archive = await trackService.archive(date)
-      res.status(200).json({ archive })
+      const firstItemDate = await trackArchiveService.firstItemDate()
+      res.status(200).json({ archive, startFrom: firstItemDate })
     }
   }
 }
