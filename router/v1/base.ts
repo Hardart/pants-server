@@ -9,6 +9,7 @@ function baseRouter(router: Router) {
   router.get('/meta', decodeQuery, asyncErrorHandler(PageController.meta))
   router.get('/programs', asyncErrorHandler(PageController.programs))
   router.get('/contacts', asyncErrorHandler(PageController.contacts))
+  router.get('/team', asyncErrorHandler(PageController.team))
 }
 
 export default baseRouter

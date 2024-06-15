@@ -5,60 +5,70 @@ import { MenuItem } from '../types/menu'
 import articleService from './article-service'
 
 const AGE_RATE = 12
-const CONTACTS = {
-  address: 'Пензенская обл., Бессоновский район, село Чемодановка',
-  index: 442761,
-  street: 'ул. Средняя',
-  houseNumber: 12
-}
+
+const hosts = [
+  {
+    fullName: 'Ella Ward',
+    position: ['host', 'press'],
+    avatar: '/images/team/01.webp'
+  },
+  {
+    fullName: 'Cedric Wilson',
+    position: ['dj'],
+    avatar: '/images/team/02.webp'
+  },
+  {
+    fullName: 'Sandra Kim',
+    position: ['dj'],
+    avatar: '/images/team/03.webp'
+  },
+  {
+    fullName: 'Edie Sheffield',
+    position: ['dj'],
+    avatar: '/images/team/04.webp'
+  },
+  {
+    fullName: 'Miriam Weber',
+    position: ['host', 'dj'],
+    avatar: '/images/team/05.webp'
+  },
+  {
+    fullName: 'Amber Rosso',
+    position: ['host'],
+    avatar: '/images/team/06.webp'
+  },
+  {
+    fullName: 'Alison Hart',
+    position: ['dj', 'press'],
+    avatar: '/images/team/07.webp'
+  },
+  {
+    fullName: 'Shelley Wyatt',
+    position: ['press'],
+    avatar: '/images/team/08.webp'
+  }
+]
 
 const team = [
   {
-    fullName: 'Ella Ward',
-    position: 'DJ',
+    fullName: 'Евгений Ларин',
+    position: ['Генеральный директор', 'Главный редактор'],
     avatar: '/images/team/01.webp'
   },
-
   {
-    fullName: 'Cedric Wilson',
-    position: 'DJ',
+    fullName: 'Александр Целуйко',
+    position: ['Программный директор'],
     avatar: '/images/team/02.webp'
   },
-
   {
-    fullName: 'Sandra Kim',
-    position: 'DJ',
+    fullName: 'Артем Шакиров',
+    position: ['Руководитель технического отдела'],
     avatar: '/images/team/03.webp'
   },
-
   {
-    fullName: 'Edie Sheffield',
-    position: 'DJ',
+    fullName: 'Александр Домнин',
+    position: ['Бренд–войс'],
     avatar: '/images/team/04.webp'
-  },
-
-  {
-    fullName: 'Miriam Weber',
-    position: 'Host',
-    avatar: '/images/team/05.webp'
-  },
-
-  {
-    fullName: 'Amber Rosso',
-    position: 'Host',
-    avatar: '/images/team/06.webp'
-  },
-
-  {
-    fullName: 'Alison Hart',
-    position: 'Press',
-    avatar: '/images/team/07.webp'
-  },
-
-  {
-    fullName: 'Shelley Wyatt',
-    position: 'Press',
-    avatar: '/images/team/08.webp'
   }
 ]
 
@@ -92,37 +102,18 @@ const mainMenu: MenuItem[] = [
     label: 'Контакты',
     childrens: [
       { slug: 'about', label: 'О радиостанции' },
-      { slug: 'team', label: 'Команда' }
+      { slug: 'team', label: 'Команда' },
+      { slug: 'regional-evolution', label: 'Региональное развитие' }
     ]
   }
 ]
 
-const contacts = {
-  title: 'Федеральная редакция',
-  phones: [
-    { label: 'Офис/Реклама', phone: { number: '+7 (495) 128-43-94' }, type: 'phone' },
-    { label: 'Эфир', phone: { number: '+7 (495) 128-43-25' }, type: 'phone' },
-    { label: 'WhatsApp и SMS', phone: { number: '+7 (937) 434-33-73' }, type: 'phone' }
-  ],
-  address: `${CONTACTS.index}, ${CONTACTS.address}, ${CONTACTS.street}, д. ${CONTACTS.houseNumber}`,
-  emails: [
-    { label: 'Служба информации', mail: { title: 'info@radioshtani.ru' }, type: 'mail' },
-    { label: 'Пресс-релизы', mail: { title: 'press-rel@radioshtani.ru' }, type: 'mail' },
-    { label: 'Редакция радиоканала', mail: { title: 'edition@radioshtani.ru' }, type: 'mail' },
-    { label: 'Музыкальная редакция', mail: { title: 'songs@radioshtani.ru' }, type: 'mail' },
-    { label: 'Прямой эфир', mail: { title: 'onair@radioshtani.ru' }, type: 'mail' }
-  ]
-}
-
-const commercial = {
-  title: 'Рекламная служба «Радио ШТАНЫ»',
-  description: 'По всем вопросам размещения рекламы на «Радио ШТАНЫ» в регионах сейлз-хаус медиахолдинга «LOLAMEDIA»',
-  phones: [{ label: 'Офис/Реклама', phone: { number: '+7 (495) 128-43-94' }, type: 'phone' }],
-  emails: [{ label: '', mail: { title: 'adv@elarin.ru' }, type: 'mail' }]
-}
-
 class PageService {
   async hosts() {
+    return hosts
+  }
+
+  async team() {
     return team
   }
 
@@ -149,10 +140,11 @@ class PageService {
   }
 
   async footerContacts() {
-    return await Contact.find()
-      .populate({ path: 'phoneId', select: 'number -_id' })
-      .populate({ path: 'mailId', select: 'title -_id' })
-      .select('-updatedAt -createdAt -_id')
+    return await Contact.find({ showTo: 'footer' })
+      .populate({ path: 'phoneId', transform: (doc) => (doc === null ? null : doc.number) })
+      .populate({ path: 'mailId', transform: (doc) => (doc === null ? null : doc.title) })
+      .populate({ path: 'addressId', select: '-_id' })
+      .select('-_id')
   }
 
   async index(query: QueryParams) {
@@ -165,7 +157,98 @@ class PageService {
   }
 
   async contacts() {
-    return { contacts, commercial }
+    const data = await Contact.aggregate([
+      {
+        $unwind: '$showTo'
+      },
+      {
+        $match: { $or: [{ showTo: 'contacts' }, { showTo: 'commersial' }] }
+      },
+      {
+        $lookup: {
+          from: 'phones',
+          localField: 'phoneId',
+          foreignField: '_id',
+          as: 'phone'
+        }
+      },
+      {
+        $unwind: { path: '$phone', preserveNullAndEmptyArrays: true }
+      },
+      {
+        $set: {
+          phone: '$phone.number'
+        }
+      },
+      {
+        $lookup: {
+          from: 'mails',
+          localField: 'mailId',
+          foreignField: '_id',
+          as: 'mail'
+        }
+      },
+      {
+        $unwind: { path: '$mail', preserveNullAndEmptyArrays: true }
+      },
+      {
+        $set: {
+          mail: '$mail.title'
+        }
+      },
+      {
+        $lookup: {
+          from: 'addresses',
+          localField: 'addressId',
+          foreignField: '_id',
+          as: 'address'
+        }
+      },
+      {
+        $unwind: { path: '$address', preserveNullAndEmptyArrays: true }
+      },
+      {
+        $group: {
+          _id: '$showTo',
+          phones: {
+            $push: {
+              $cond: {
+                if: { $ifNull: ['$phone', null] },
+                then: { phone: '$phone', label: '$label' },
+                else: undefined
+              }
+            }
+          },
+          mails: {
+            $push: {
+              $cond: {
+                if: { $ifNull: ['$mail', null] },
+                then: { mail: '$mail', label: '$label' },
+                else: undefined
+              }
+            }
+          },
+          addresses: {
+            $push: {
+              $cond: {
+                if: { $ifNull: ['$address', null] },
+                then: { address: '$address', label: '$label' },
+                else: undefined
+              }
+            }
+          }
+        }
+      }
+    ])
+
+    return data.reduce((acc, curr) => {
+      if (typeof acc[curr._id] === 'undefined') acc[curr._id] = {}
+      acc[curr._id].phones = curr.phones.filter((p: unknown) => p !== null)
+      acc[curr._id].addresses = curr.addresses.filter((a: unknown) => a !== null)
+      acc[curr._id].mails = curr.mails.filter((m: unknown) => m !== null)
+
+      return acc
+    }, {})
   }
 }
 
