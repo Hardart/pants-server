@@ -4,8 +4,6 @@ import { QueryParams } from '../types/custom-request'
 import pageService from '../service/page-service'
 import tagService from '../service/tag-service'
 import programService from '../service/program-service'
-import { MenuItem } from '../types/menu'
-import { FooterMeta } from '../types/footer'
 import slideService from '../service/slide-service'
 
 interface IMenuItem {
@@ -14,8 +12,6 @@ interface IMenuItem {
   childrens?: IMenuItem[]
 }
 
-let menu: MenuItem[] = []
-let footerCache: FooterMeta
 export default class PageController {
   static async main(req: Request, res: Response, next: NextFunction) {
     const q = req.query as QueryParams
@@ -26,22 +22,16 @@ export default class PageController {
   }
 
   static async meta(req: Request, res: Response, next: NextFunction) {
-    if (!menu.length) {
-      const mainMenu = await pageService.mainMenu()
-      const programs = await programService.menuList()
+    const mainMenu = await pageService.mainMenu()
+    const programs = await programService.menuList()
 
-      mainMenu.forEach((item) => {
-        if (item.slug === 'programs') item.childrens = programs.map((p) => ({ label: p.title, slug: p.slug }))
-      })
-      footerCache = await pageService.footerData()
-      menu = addLinkToMenuItem(mainMenu)
-      console.log('build')
-    } else {
-      console.log('cache')
-    }
-
+    mainMenu.forEach((item) => {
+      if (item.slug === 'programs') item.childrens = programs.map((p) => ({ label: p.title, slug: p.slug }))
+    })
+    const footer = await pageService.footerData()
+    const menuWithLink = addLinkToMenuItem(mainMenu)
     const tagList = await tagService.list()
-    res.json({ mainMenu: menu, tagList, footer: footerCache })
+    res.json({ mainMenu: menuWithLink, tagList, footer })
   }
 
   static async programs(req: Request, res: Response, next: NextFunction) {
@@ -51,7 +41,12 @@ export default class PageController {
 
   static async contacts(req: Request, res: Response, next: NextFunction) {
     const contacts = await pageService.contacts()
-    res.json(contacts)
+    res.json({ ...contacts })
+  }
+
+  static async team(req: Request, res: Response, next: NextFunction) {
+    const team = await pageService.team()
+    res.json({ team })
   }
 }
 
