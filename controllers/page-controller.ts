@@ -41,7 +41,7 @@ export default class PageController {
 
   static async contacts(req: Request, res: Response, next: NextFunction) {
     const contacts = await pageService.contacts()
-    res.json({ ...contacts })
+    res.json(contacts)
   }
 
   static async team(req: Request, res: Response, next: NextFunction) {

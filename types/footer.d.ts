@@ -1,4 +1,4 @@
-import { Contact } from '../models/Contact'
+import { Contacts } from './contacts'
 
 interface IFooterInfoItem {
   iconValue: string | number
@@ -8,5 +8,5 @@ interface IFooterInfoItem {
 export type FooterMeta = {
   smsInfo: IFooterInfoItem
   licenseInfo: IFooterInfoItem
-  contacts: Contact[]
+  contacts: Contacts
 }

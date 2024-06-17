@@ -1,8 +1,8 @@
-import { Contact } from '../models/Contact'
 import { QueryParams } from '../types/custom-request'
 import { FooterMeta } from '../types/footer'
 import { MenuItem } from '../types/menu'
 import articleService from './article-service'
+import contactService from './contact-service'
 
 const AGE_RATE = 12
 
@@ -123,7 +123,8 @@ class PageService {
 
   async footerData(): Promise<FooterMeta> {
     const { licenseInfo, smsInfo } = this.footerInfo()
-    return { contacts: await this.footerContacts(), licenseInfo, smsInfo }
+    const contacts = await this.footerContacts()
+    return { contacts, licenseInfo, smsInfo }
   }
 
   footerInfo() {
@@ -140,11 +141,9 @@ class PageService {
   }
 
   async footerContacts() {
-    return await Contact.find({ showTo: 'footer' })
-      .populate({ path: 'phoneId', transform: (doc) => (doc === null ? null : doc.number) })
-      .populate({ path: 'mailId', transform: (doc) => (doc === null ? null : doc.title) })
-      .populate({ path: 'addressId', select: '-_id' })
-      .select('-_id')
+    const emails = await contactService.mailsList()
+    const phones = await contactService.phonesList()
+    return { emails, phones }
   }
 
   async index(query: QueryParams) {
@@ -157,98 +156,10 @@ class PageService {
   }
 
   async contacts() {
-    const data = await Contact.aggregate([
-      {
-        $unwind: '$showTo'
-      },
-      {
-        $match: { $or: [{ showTo: 'contacts' }, { showTo: 'commersial' }] }
-      },
-      {
-        $lookup: {
-          from: 'phones',
-          localField: 'phoneId',
-          foreignField: '_id',
-          as: 'phone'
-        }
-      },
-      {
-        $unwind: { path: '$phone', preserveNullAndEmptyArrays: true }
-      },
-      {
-        $set: {
-          phone: '$phone.number'
-        }
-      },
-      {
-        $lookup: {
-          from: 'mails',
-          localField: 'mailId',
-          foreignField: '_id',
-          as: 'mail'
-        }
-      },
-      {
-        $unwind: { path: '$mail', preserveNullAndEmptyArrays: true }
-      },
-      {
-        $set: {
-          mail: '$mail.title'
-        }
-      },
-      {
-        $lookup: {
-          from: 'addresses',
-          localField: 'addressId',
-          foreignField: '_id',
-          as: 'address'
-        }
-      },
-      {
-        $unwind: { path: '$address', preserveNullAndEmptyArrays: true }
-      },
-      {
-        $group: {
-          _id: '$showTo',
-          phones: {
-            $push: {
-              $cond: {
-                if: { $ifNull: ['$phone', null] },
-                then: { phone: '$phone', label: '$label' },
-                else: undefined
-              }
-            }
-          },
-          mails: {
-            $push: {
-              $cond: {
-                if: { $ifNull: ['$mail', null] },
-                then: { mail: '$mail', label: '$label' },
-                else: undefined
-              }
-            }
-          },
-          addresses: {
-            $push: {
-              $cond: {
-                if: { $ifNull: ['$address', null] },
-                then: { address: '$address', label: '$label' },
-                else: undefined
-              }
-            }
-          }
-        }
-      }
-    ])
-
-    return data.reduce((acc, curr) => {
-      if (typeof acc[curr._id] === 'undefined') acc[curr._id] = {}
-      acc[curr._id].phones = curr.phones.filter((p: unknown) => p !== null)
-      acc[curr._id].addresses = curr.addresses.filter((a: unknown) => a !== null)
-      acc[curr._id].mails = curr.mails.filter((m: unknown) => m !== null)
-
-      return acc
-    }, {})
+    const emails = await contactService.mailsList()
+    const phones = await contactService.phonesList()
+    const addresses = await contactService.addressList()
+    return { emails, phones, addresses }
   }
 }
 

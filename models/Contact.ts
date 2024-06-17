@@ -9,7 +9,7 @@ const ContactSchema = new Schema(
     mailId: { type: Schema.Types.ObjectId, ref: Mail },
     phoneId: { type: Schema.Types.ObjectId, ref: Phone },
     addressId: { type: Schema.Types.ObjectId, ref: Address },
-    showTo: { type: [String], enum: ['footer', 'contacts', 'commersial'] },
+    showIn: { type: [String], enum: ['footer', 'contacts', 'commersial'] },
     priority: Number
   },
   { timestamps: true, versionKey: false }
