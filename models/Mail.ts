@@ -2,10 +2,7 @@ import { Schema, model, InferSchemaType } from 'mongoose'
 
 const MailSchema = new Schema(
   {
-    address: { type: String, required: true },
-    label: { type: String, required: true },
-    showIn: { type: [String], enum: ['footer', 'contacts', 'commersial'] },
-    priority: Number
+    address: { type: String, required: true }
   },
   { timestamps: false, versionKey: false, toObject: { virtuals: true } }
 )

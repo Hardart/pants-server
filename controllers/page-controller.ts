@@ -5,6 +5,7 @@ import pageService from '../service/page-service'
 import tagService from '../service/tag-service'
 import programService from '../service/program-service'
 import slideService from '../service/slide-service'
+import contactService from '../service/contact-service'
 
 interface IMenuItem {
   slug: string
@@ -28,10 +29,10 @@ export default class PageController {
     mainMenu.forEach((item) => {
       if (item.slug === 'programs') item.childrens = programs.map((p) => ({ label: p.title, slug: p.slug }))
     })
-    const footer = await pageService.footerData()
     const menuWithLink = addLinkToMenuItem(mainMenu)
+    const footerData = await pageService.footerData()
     const tagList = await tagService.list()
-    res.json({ mainMenu: menuWithLink, tagList, footer })
+    res.json({ mainMenu: menuWithLink, tagList, footerData })
   }
 
   static async programs(req: Request, res: Response, next: NextFunction) {
@@ -40,8 +41,8 @@ export default class PageController {
   }
 
   static async contacts(req: Request, res: Response, next: NextFunction) {
-    const contacts = await pageService.contacts()
-    res.json(contacts)
+    const contact = await contactService.contacts('contacts')
+    res.json(contact)
   }
 
   static async team(req: Request, res: Response, next: NextFunction) {

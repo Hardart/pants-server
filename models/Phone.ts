@@ -2,12 +2,9 @@ import { Schema, model, InferSchemaType } from 'mongoose'
 
 const PhoneSchema = new Schema(
   {
-    number: { type: String, required: true },
-    label: { type: String, required: true },
-    showIn: { type: [String], enum: ['footer', 'contacts', 'commersial'] },
-    priority: Number
+    number: { type: String, required: true }
   },
-  { timestamps: false, versionKey: false, toObject: { virtuals: true } }
+  { timestamps: false, versionKey: false }
 )
 
 PhoneSchema.set('toJSON', {

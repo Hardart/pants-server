@@ -1,5 +1,4 @@
 import { QueryParams } from '../types/custom-request'
-import { FooterMeta } from '../types/footer'
 import { MenuItem } from '../types/menu'
 import articleService from './article-service'
 import contactService from './contact-service'
@@ -121,13 +120,13 @@ class PageService {
     return mainMenu
   }
 
-  async footerData(): Promise<FooterMeta> {
-    const { licenseInfo, smsInfo } = this.footerInfo()
-    const contacts = await this.footerContacts()
-    return { contacts, licenseInfo, smsInfo }
+  async footerData() {
+    const { licenseInfo, smsInfo } = this._footerInfo()
+    const { emails, phones, addresses } = await contactService.contacts('footer')
+    return { emails, phones, addresses, licenseInfo, smsInfo }
   }
 
-  footerInfo() {
+  private _footerInfo() {
     return {
       smsInfo: {
         iconValue: 'i',
@@ -140,12 +139,6 @@ class PageService {
     }
   }
 
-  async footerContacts() {
-    const emails = await contactService.mailsList()
-    const phones = await contactService.phonesList()
-    return { emails, phones }
-  }
-
   async index(query: QueryParams) {
     const pageData = {
       news: await articleService.list(query),
@@ -153,13 +146,6 @@ class PageService {
       footer: await this.footerData()
     }
     return pageData
-  }
-
-  async contacts() {
-    const emails = await contactService.mailsList()
-    const phones = await contactService.phonesList()
-    const addresses = await contactService.addressList()
-    return { emails, phones, addresses }
   }
 }
 

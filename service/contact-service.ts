@@ -1,18 +1,13 @@
-import { Address } from '../models/Address'
-import { Mail } from '../models/Mail'
-import { Phone } from '../models/Phone'
+import { Contact } from '../models/Contact'
 
 class ContactService {
-  async phonesList() {
-    return await Phone.find()
-  }
-
-  async mailsList() {
-    return await Mail.find()
-  }
-
-  async addressList() {
-    return await Address.find()
+  async contacts(section: 'footer' | 'contacts' | 'commersial') {
+    const contact = await Contact.findOne({ section }).select('-section -phones._id -emails._id')
+    if (!contact) throw new Error('Cant get footer contacts from DB')
+    const phones = contact.phones.map(({ label, description, id }) => ({ label, description, number: id }))
+    const emails = contact.emails.map(({ label, description, id }) => ({ label, description, address: id }))
+    const addresses = contact.addresses.map(({ label, description, id }) => ({ label, description, info: id }))
+    return { phones, emails, addresses }
   }
 }
 

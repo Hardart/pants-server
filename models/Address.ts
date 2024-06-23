@@ -2,13 +2,15 @@ import { Schema, model, InferSchemaType } from 'mongoose'
 
 const AddressSchema = new Schema(
   {
-    address: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
+    region: { type: String, required: true },
+    district: { type: String, required: true },
+    street: { type: String, required: true },
+    city: { type: String },
+    locality: { type: String },
+    houseNumber: { type: Number },
+    appartment: { type: Number },
     zip: { type: Number, required: true },
-    mapUrl: {
-      yandex: { type: String, required: true }
-    }
+    yaMapUrl: { type: String }
   },
   { timestamps: false, versionKey: false }
 )
