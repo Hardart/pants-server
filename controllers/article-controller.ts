@@ -11,7 +11,7 @@ class ArticleController extends BaseController {
     const categories = await categoryService.list()
     const count = await articleService.count(queryParams)
     res.setHeader('X-Total', count)
-    res.json({articles, categories})
+    res.json({ articles, categories })
   }
 
   async one(req: Request, res: Response, next: NextFunction) {
