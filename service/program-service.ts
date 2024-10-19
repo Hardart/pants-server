@@ -6,6 +6,7 @@ class ProgramService {
     const programs = {
       $push: {
         title: '$title',
+        slug: '$slug',
         start: { $concat: ['$schedule.properties.start.hh', ':', '$schedule.properties.start.mm'] },
         end: { $concat: ['$schedule.properties.end.hh', ':', '$schedule.properties.end.mm'] },
         isReplay: '$schedule.properties.isReplay',
