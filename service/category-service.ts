@@ -41,6 +41,16 @@ class CategoryService {
             }
           }
         }
+      },
+      {
+        $addFields: {
+          articles: {
+            $sortArray: {
+              input: '$articles',
+              sortBy: { createdAt: -1 }
+            }
+          }
+        }
       }
     ])
   }
