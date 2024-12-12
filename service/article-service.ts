@@ -6,7 +6,7 @@ class ArticleService {
   async list({ filter, sort, limit, page }: QueryParams) {
     const cats = await Category.find({ isPublished: true })
     const articles = await Article.find({ $and: [...filter, { categoryId: { $in: cats } }] })
-      .select('title slug image createdAt')
+      .select('title slug image createdAt publishAt')
       .populate({ path: 'categoryId', select: 'title slug' })
       .skip(parseInt(page) * parseInt(limit))
       .limit(parseInt(limit))
@@ -24,13 +24,13 @@ class ArticleService {
 
   async findBySlug(slug: string) {
     return await Article.findOne({ slug })
-      .select('title slug image tags content createdAt -_id')
+      .select('title slug image tags content createdAt publishAt -_id')
       .populate({ path: 'categoryId', select: 'title slug -_id' })
   }
 
   async findByCategoryId(id: string) {
     return await Article.find({ categoryId: id })
-      .select('title slug image tags content createdAt -_id')
+      .select('title slug image tags content createdAt publishAt -_id')
       .populate({ path: 'categoryId', select: 'title slug -_id' })
   }
 }
