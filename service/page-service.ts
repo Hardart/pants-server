@@ -7,44 +7,16 @@ const AGE_RATE = 12
 
 const hosts = [
   {
-    fullName: 'Ella Ward',
-    position: ['host', 'press'],
-    avatar: '/images/team/01.webp'
-  },
-  {
-    fullName: 'Cedric Wilson',
-    position: ['dj'],
-    avatar: '/images/team/02.webp'
-  },
-  {
-    fullName: 'Sandra Kim',
-    position: ['dj'],
-    avatar: '/images/team/03.webp'
-  },
-  {
-    fullName: 'Edie Sheffield',
-    position: ['dj'],
-    avatar: '/images/team/04.webp'
-  },
-  {
-    fullName: 'Miriam Weber',
-    position: ['host', 'dj'],
-    avatar: '/images/team/05.webp'
-  },
-  {
-    fullName: 'Amber Rosso',
+    fullName: 'Евгений Богомолов',
     position: ['host'],
-    avatar: '/images/team/06.webp'
+    avatar: '/images/team/no_image.webp',
+    programs: ['Шоу "Без названия"']
   },
   {
-    fullName: 'Alison Hart',
-    position: ['dj', 'press'],
-    avatar: '/images/team/07.webp'
-  },
-  {
-    fullName: 'Shelley Wyatt',
-    position: ['press'],
-    avatar: '/images/team/08.webp'
+    fullName: 'Павел Планов',
+    position: ['host'],
+    avatar: '/images/team/no_image.webp',
+    programs: ['Шоу "Без названия"']
   }
 ]
 
@@ -52,22 +24,17 @@ const team = [
   {
     fullName: 'Евгений Ларин',
     position: ['Генеральный директор', 'Главный редактор'],
-    avatar: '/images/team/01.webp'
-  },
-  {
-    fullName: 'Александр Целуйко',
-    position: ['Программный директор'],
-    avatar: '/images/team/02.webp'
+    avatar: '/images/team/larin.jpg'
   },
   {
     fullName: 'Артем Шакиров',
     position: ['Руководитель технического отдела'],
-    avatar: '/images/team/03.webp'
+    avatar: '/images/team/no_image.webp'
   },
   {
     fullName: 'Александр Домнин',
     position: ['Бренд–войс'],
-    avatar: '/images/team/04.webp'
+    avatar: '/images/team/no_image.webp'
   }
 ]
 
