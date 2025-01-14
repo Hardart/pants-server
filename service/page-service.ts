@@ -46,9 +46,9 @@ const mainMenu: MenuItem[] = [
       { slug: 'schedule', label: 'Сетка вещания' },
       { slug: 'playlist', label: 'Плейлист' },
       { slug: 'hosts', label: 'Ведущие' },
-      { slug: 'podcasts', label: 'Подкасты' },
       { slug: 'live', label: 'Прямой эфир' },
       { slug: 'news', label: 'Новости' }
+      // { slug: 'podcasts', label: 'Подкасты' },
     ]
   },
   {
