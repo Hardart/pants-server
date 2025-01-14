@@ -8,11 +8,11 @@ const UserSchema = new Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     avatar: String,
-    roles: { type: [String], default: ['editor'], required: true },
+    roles: { type: [String], default: ['editor'], required: true }
   },
   {
     timestamps: false,
-    versionKey: false,
+    versionKey: false
   }
 )
 
@@ -24,15 +24,13 @@ UserSchema.post('save', function (error: Error, _: any, next: mongoose.CallbackW
   }
 })
 
-
-
 UserSchema.set('toJSON', {
   versionKey: false,
   virtuals: true
 })
 
 UserSchema.virtual('fullName').get(function () {
-  return this.lastName + ' ' + this.firstName
+  return this.firstName + ' ' + this.lastName
 })
 
 export type User = InferSchemaType<typeof UserSchema> & { fullName?: string }
