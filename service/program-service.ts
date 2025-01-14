@@ -17,7 +17,9 @@ class ProgramService {
     const unwindSchedule = { $unwind: '$schedule' }
     const unwindWeekdayIds = { $unwind: '$schedule.weekdayIds' }
     const unwindProps = { $unwind: '$schedule.properties' }
-    const sortByStartHour: PipelineStage.Sort = { $sort: { 'schedule.properties.start.hh': 1 } }
+    const sortByStartHour: PipelineStage.Sort = {
+      $sort: { 'schedule.properties.start.hh': 1, 'schedule.properties.start.mm': 1 }
+    }
     const groupByWeekdayIds = { $group: { _id: '$schedule.weekdayIds', programs } }
     const sortById: PipelineStage.Sort = { $sort: { _id: 1 } }
 
