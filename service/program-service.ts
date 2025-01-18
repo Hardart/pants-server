@@ -10,6 +10,7 @@ class ProgramService {
         start: { $concat: ['$schedule.properties.start.hh', ':', '$schedule.properties.start.mm'] },
         end: { $concat: ['$schedule.properties.end.hh', ':', '$schedule.properties.end.mm'] },
         isReplay: '$schedule.properties.isReplay',
+        isPublished: '$isPublished',
         hosts: '$hosts',
         image: '$image'
       }
