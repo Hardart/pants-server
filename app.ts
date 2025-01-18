@@ -7,10 +7,12 @@ import otherRoutes from './handlers/routes-handler'
 
 const app = express()
 
+const allowedOrigin = process.env.NODE_ENV === 'production' ? 'https://radioshtani.ru' : 'http://localhost:3000'
+
 app.use(express.json())
 app.use(express.static('assets'))
 app.use(cookerParser())
-app.use(cors({ credentials: true, origin: 'https://radioshtani.ru' }))
+app.use(cors({ credentials: true, origin: allowedOrigin }))
 app.use('/api/v1', routerV1)
 
 app.use('*', otherRoutes)
