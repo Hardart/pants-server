@@ -39,7 +39,7 @@ class ProgramService {
   }
 
   async menuList() {
-    return await Program.find({ isPublished: true }).select('title slug')
+    return await Program.find({ showInMenu: true }).select('title slug')
   }
 
   async oneBySlug(slug: string) {

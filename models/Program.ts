@@ -8,23 +8,26 @@ const ProgramSchema = new Schema(
     description: String,
     image: String,
     hosts: [{ type: Schema.Types.ObjectId, ref: User }],
-    schedule: [{
-      weekdayIds: [Number],
-      properties: [
-        {
-          start: {
-            hh: { type: String, required: true },
-            mm: { type: String, required: true }
-          },
-          end: {
-            hh: { type: String, required: true },
-            mm: { type: String, required: true }
-          },
-          isReplay: { type: Boolean, default: false }
-        }
-      ]
-    }],
-    isPublished: { type: Boolean, default: false }
+    schedule: [
+      {
+        weekdayIds: [Number],
+        properties: [
+          {
+            start: {
+              hh: { type: String, required: true },
+              mm: { type: String, required: true }
+            },
+            end: {
+              hh: { type: String, required: true },
+              mm: { type: String, required: true }
+            },
+            isReplay: { type: Boolean, default: false }
+          }
+        ]
+      }
+    ],
+    isPublished: { type: Boolean, default: false },
+    showInMenu: { type: Boolean, default: false }
   },
   { timestamps: false, versionKey: false, toObject: { virtuals: true } }
 )
@@ -34,7 +37,7 @@ ProgramSchema.set('toJSON', {
   virtuals: true,
   transform: function (_, ret) {
     delete ret._id
-  },
+  }
 })
 
 export type Program = InferSchemaType<typeof ProgramSchema>
