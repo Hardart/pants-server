@@ -10,7 +10,7 @@ class SlideService {
   }
 
   async list() {
-    return await Slide.find().select('-updatedAt')
+    return await Slide.find().select('-updatedAt -createdAt')
   }
 }
 

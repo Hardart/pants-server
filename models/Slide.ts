@@ -12,7 +12,7 @@ const SlideSchema = new Schema(
 
 SlideSchema.set('toJSON', {
   versionKey: false,
-  virtuals: true,
+  virtuals: false,
   transform: function (_, ret) {
     delete ret._id
   }
