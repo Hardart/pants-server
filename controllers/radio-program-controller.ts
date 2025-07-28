@@ -1,5 +1,4 @@
 import type { Response, Request } from 'express'
-
 import radioProgramService from '../service/radio-program-service'
 
 class RadioProgramController {

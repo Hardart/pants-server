@@ -152,6 +152,7 @@ class RadioProgramService {
           isPublished: '$isPublished',
           color: '$color',
           hosts: '$hosts',
+          image: '$image',
           showInMenu: '$showInMenu',
           // duration: '$schedule.duration',
           dayIndex: '$schedule.dayIndex',
@@ -178,6 +179,7 @@ class RadioProgramService {
           isPublished: '$_id.isPublished',
           color: '$_id.color',
           hosts: '$_id.hosts',
+          image: '$_id.image',
           showInMenu: '$_id.showInMenu'
         },
         schedule: {
@@ -202,6 +204,7 @@ class RadioProgramService {
         color: '$_id.color',
         hosts: '$_id.hosts',
         showInMenu: '$_id.showInMenu',
+        image: '$_id.image',
         schedule: 1
       }
     }
