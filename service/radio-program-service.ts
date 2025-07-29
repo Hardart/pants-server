@@ -75,6 +75,7 @@ class RadioProgramService {
         type: '$type',
         hosts: '$hosts',
         image: '$image',
+        description: '$description',
         priority: '$priority'
       }
     }
@@ -153,10 +154,12 @@ class RadioProgramService {
           color: '$color',
           hosts: '$hosts',
           image: '$image',
+          type: '$type',
           showInMenu: '$showInMenu',
-          // duration: '$schedule.duration',
+          description: '$description',
           dayIndex: '$schedule.dayIndex',
-          dayRange: '$schedule.dayRange'
+          dayRange: '$schedule.dayRange',
+          duration: '$schedule.duration'
         },
         startTimes: { $push: '$schedule.startTime' }
       }
@@ -176,18 +179,20 @@ class RadioProgramService {
           programId: '$_id.programId',
           title: '$_id.title',
           slug: '$_id.slug',
-          isPublished: '$_id.isPublished',
+          type: '$_id.type',
           color: '$_id.color',
           hosts: '$_id.hosts',
           image: '$_id.image',
-          showInMenu: '$_id.showInMenu'
+          showInMenu: '$_id.showInMenu',
+          description: '$_id.description',
+          isPublished: '$_id.isPublished'
         },
         schedule: {
           $push: {
+            startTime: '$startTimes',
             duration: '$_id.duration',
             dayIndex: '$_id.dayIndex',
-            dayRange: '$_id.dayRange',
-            startTime: '$startTimes'
+            dayRange: '$_id.dayRange'
           }
         }
       }
@@ -200,11 +205,13 @@ class RadioProgramService {
         id: '$_id.programId',
         title: '$_id.title',
         slug: '$_id.slug',
-        isPublished: '$_id.isPublished',
+        type: '$_id.type',
         color: '$_id.color',
         hosts: '$_id.hosts',
-        showInMenu: '$_id.showInMenu',
         image: '$_id.image',
+        showInMenu: '$_id.showInMenu',
+        isPublished: '$_id.isPublished',
+        description: '$_id.description',
         schedule: 1
       }
     }
