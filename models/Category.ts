@@ -7,7 +7,7 @@ const CategorySchema = new Schema(
     image: String,
     description: String,
     articleIds: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
-    isPublished: { type: Boolean, default: false },
+    isPublished: { type: Boolean, default: false }
   },
   { timestamps: true, versionKey: false, toObject: { virtuals: true } }
 )
@@ -16,9 +16,11 @@ CategorySchema.set('toJSON', {
   versionKey: false,
   virtuals: true,
   transform: function (_, ret) {
+    //@ts-ignore
     delete ret._id
+    //@ts-ignore
     delete ret.__v
-  },
+  }
 })
 
 export type Category = InferSchemaType<typeof CategorySchema>

@@ -36,6 +36,7 @@ ProgramSchema.set('toJSON', {
   versionKey: false,
   virtuals: true,
   transform: function (_, ret) {
+    //@ts-ignore
     delete ret._id
   }
 })

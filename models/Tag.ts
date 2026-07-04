@@ -2,7 +2,7 @@ import { Schema, model, InferSchemaType } from 'mongoose'
 
 const TagSchema = new Schema(
   {
-    title: { type: String, required: true },
+    title: { type: String, required: true }
   },
   { timestamps: false, versionKey: false, toObject: { virtuals: true } }
 )
@@ -10,9 +10,11 @@ const TagSchema = new Schema(
 TagSchema.set('toJSON', {
   versionKey: false,
   transform: function (_, ret) {
+    //@ts-ignore
     delete ret._id
+    //@ts-ignore
     delete ret.__v
-  },
+  }
 })
 
 // TagSchema.post('find', (res, next) => {

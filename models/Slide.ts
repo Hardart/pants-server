@@ -14,6 +14,7 @@ SlideSchema.set('toJSON', {
   versionKey: false,
   virtuals: false,
   transform: function (_, ret) {
+    //@ts-ignore
     delete ret._id
   }
 })
